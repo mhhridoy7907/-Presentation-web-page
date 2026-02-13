@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3D 8-Side Image Carousel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  min-height:100vh;
+  perspective:1800px;
+}
+
+/* ===== HEADER ===== */
+header{
+  text-align:center;
+  padding:30px 20px;
+  animation:fadeSlide 1s ease forwards;
+}
+header h1{
+  font-size:46px;
+  color:#00ffea;
+  text-shadow:0 0 20px rgba(0,255,234,0.8);
+}
+
+@keyframes fadeSlide{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container{
+  display:flex;
+  flex-direction:column; /* vertical layout */
+  align-items:center;
+  gap:40px;
+  padding:20px;
+}
+
+/* ===== 3D CAROUSEL ===== */
+.scene{
+  width:420px;
+  height:420px;
+   margin-top: -80px;
+}
+
+.carousel{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  cursor:grab;
+}
+
+.panel{
+  position:absolute;
+  width:230px;
+  height:230px;
+  left:95px;
+  top:95px;
+  border-radius:15px;
+  overflow:hidden;
+  border:3px solid rgba(255,255,0,0.35);
+  box-shadow:0 0 30px rgba(0,255,234,0.7),
+             inset 0 0 15px rgba(0,255,234,0.4);
+}
+
+.panel img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ===== CARD ===== */
+.card{
+  max-width:900px;
+  width:100%;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(0,255,234,0.4);
+  border-radius:20px;
+  padding:40px;
+  box-shadow:0 0 40px rgba(0,255,234,0.3);
+  animation:fadeSlide 1s ease forwards;
+  margin-top:-50px; /* card উপরে তুলা */
+}
+
+.card h3{
+  text-align:center;
+  color:#00ffea;
+  margin-bottom:25px;
+}
+
+/* ===== LIST STYLE (PAIR) ===== */
+.card ol{
+  list-style:none;
+  display:grid;
+  grid-template-columns:1fr 1fr;  /* 1,2 | 3,4 */
+  gap:15px 25px;
+  padding:0;
+}
+
+.card li{
+  padding:12px 15px;
+  background:#0b1220;
+  border-left:4px solid #00ff99;
+  border-radius:8px;
+  transition:0.3s;
+  color: #fff;
+}
+
+.card li:hover{
+  background:#00ffea;
+  color:#000;
+  transform:translateX(5px);
+}
+
+/* ===== NEXT BUTTON ===== */
+.next-btn{
+  margin:30px auto;
+  padding:15px 50px;
+  font-size:20px;
+  color:#00ffea;
+  background:transparent;
+  border:2px solid #00ffea;
+  border-radius:30px;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(0,255,234,0.5);
+}
+.next-btn:hover{
+  background:#00ffea;
+  color:#000;
+  box-shadow:0 0 40px rgba(0,255,234,1);
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:700px){
+  .card ol{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>How They Hack</h1>
+</header>
+
+<div class="container">
+
+<!-- ===== IMAGE CAROUSEL ===== -->
+<div class="scene">
+  <div class="carousel" id="carousel">
+    <div class="panel" style="transform:rotateY(0deg) translateZ(360px)"><img src="mm/phishing.jpg"></div>
+    <div class="panel" style="transform:rotateY(45deg) translateZ(360px)"><img src="mm/evil.jpg"></div>
+    <div class="panel" style="transform:rotateY(90deg) translateZ(360px)"><img src="mm/Brute Force.jpg"></div>
+    <div class="panel" style="transform:rotateY(135deg) translateZ(360px)"><img src="mm/trojon.jpg"></div>
+    <div class="panel" style="transform:rotateY(180deg) translateZ(360px)"><img src="mm/SQL injection attack.jpg"></div>
+    <div class="panel" style="transform:rotateY(225deg) translateZ(360px)"><img src="mm/Malware.jpg"></div>
+    <div class="panel" style="transform:rotateY(270deg) translateZ(360px)"><img src="mm/key.jpg"></div>
+    <div class="panel" style="transform:rotateY(315deg) translateZ(360px)"><img src="mm/Social Engineering.jpg"></div>
+  </div>
+</div>
+
+<!-- ===== CARD ===== -->
+<div class="card">
+ <ol>
+    <a href="Li/fa.html"><li>1. Phishing attacks</li></a>
+
+          <li>2. Evil Twin attacks</li>
+
+    <a href="Li/bu.html"><li>3. Brute force attacks</li></a>
+    <a href="Li/tr.html"><li>4. Trojan attacks</li></a>
+    <li>5. SQL injection attacks</li>
+    <li>6. Malware and viruses</li>
+    <a href="Li/key.html"> <li>7. Key loggers</li></a>
+    <li>8. Social engineering</li>
+  </ol>
+</div>
+
+</div>
+
+<button class="next-btn" onclick="location.href='slide4.html'">NEXT ➜</button>
+
+<script>
+const carousel = document.getElementById("carousel");
+let rotY=0,drag=false,startX;
+
+document.addEventListener("mousedown",e=>{
+  drag=true; startX=e.clientX;
+});
+document.addEventListener("mouseup",()=>drag=false);
+document.addEventListener("mousemove",e=>{
+  if(!drag) return;
+  rotY+=(e.clientX-startX)*0.4;
+  carousel.style.transform=`rotateY(${rotY}deg)`;
+  startX=e.clientX;
+});
+
+function auto(){
+  if(!drag){
+    rotY+=0.25;
+    carousel.style.transform=`rotateY(${rotY}deg)`;
+  }
+  requestAnimationFrame(auto);
+}
+auto();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Presentation Ending</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  min-height:100vh;
+  overflow:hidden;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  position:relative;
+  text-align:center;
+}
+
+/* ===== BACKGROUND BUBBLES ===== */
+.bubble{
+  position:absolute;
+  bottom:-50px;
+  background:rgba(0,255,234,0.2);
+  border-radius:50%;
+  animation:floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  0%{
+    transform:translateY(0) scale(1);
+    opacity:0.5;
+  }
+  50%{
+    opacity:1;
+  }
+  100%{
+    transform:translateY(-110vh) scale(1.2);
+    opacity:0;
+  }
+}
+
+/* ===== MAIN CONTENT ===== */
+.content{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:20px;
+  position:relative;
+  z-index:2;
+}
+
+/* ===== IMAGE ===== */
+.ending-img{
+  width:200px;
+  border-radius:50%;
+  box-shadow:0 0 50px rgba(0,255,234,0.7);
+  animation:riseUp 1.2s ease forwards;
+  transform:translateY(50px);
+  opacity:0;
+}
+
+/* ===== TEXT ===== */
+.message{
+  color:#00ffea;
+  font-size:24px;
+  line-height:1.6;
+  text-shadow:0 0 15px rgba(0,255,234,0.6);
+  max-width:600px;
+  animation:riseUp 1.4s ease forwards;
+  transform:translateY(50px);
+  opacity:0;
+}
+h1{
+  font-size:48px;
+  color:#00ffea;
+  text-shadow:0 0 20px rgba(0,255,234,0.8);
+  animation:riseUp 1s ease forwards;
+  transform:translateY(50px);
+  opacity:0;
+}
+/* ===== BUTTON ===== */
+.restart-btn{
+  margin-top:20px;
+  padding:12px 40px;
+  font-size:20px;
+  color:#00ffea;
+  background:transparent;
+  border:2px solid #00ffea;
+  border-radius:30px;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 0 20px rgba(0,255,234,0.5);
+  animation:riseUp 1.6s ease forwards;
+  transform:translateY(50px);
+  opacity:0;
+}
+.restart-btn:hover{
+  background:#00ffea;
+  color:#000;
+  box-shadow:0 0 40px rgba(0,255,234,1);
+}
+
+/* ===== RISE-UP ANIMATION ===== */
+@keyframes riseUp {
+  0%{
+    transform:translateY(50px);
+    opacity:0;
+  }
+  100%{
+    transform:translateY(0);
+    opacity:1;
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+  .message{
+    text-align:center;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Bubbles -->
+<div class="bubble" style="left:10%; width:15px; height:15px; animation-duration:5s;"></div>
+<div class="bubble" style="left:25%; width:20px; height:20px; animation-duration:6s;"></div>
+<div class="bubble" style="left:40%; width:25px; height:25px; animation-duration:7s;"></div>
+<div class="bubble" style="left:55%; width:15px; height:15px; animation-duration:5.5s;"></div>
+<div class="bubble" style="left:70%; width:20px; height:20px; animation-duration:6.5s;"></div>
+<div class="bubble" style="left:85%; width:25px; height:25px; animation-duration:7.5s;"></div>
+
+<div class="content">
+  <h1>Thank you for your attention</h1>
+  <img class="ending-img" src="mm/MURAD HASAN HRIDOY.jpg" alt="Ending Image">
+  
+  <div class="message">
+    This concludes our presentation.<br>
+    Stay Safe from Black Hat Hackers!
+    <br>
+    <button class="restart-btn" onclick="window.location.href='slide1.html'">Restart Presentation</button>
+  </div>
+</div>
+
+</body>
+</html>

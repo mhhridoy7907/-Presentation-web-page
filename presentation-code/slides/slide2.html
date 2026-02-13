@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>3D Cube Presentation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  min-height:100vh;
+  perspective:1800px;
+  overflow-x:hidden;
+}
+
+/* ===== HEADER ===== */
+header{
+  text-align:center;
+  padding:40px 20px;
+  opacity:0;
+  transform:translateY(30px);
+  animation:fadeSlide 1s ease forwards;
+}
+
+header h1{
+  font-size:48px;
+  color:#00ffea;
+  text-shadow:0 0 20px rgba(0,255,234,0.8);
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeSlide{
+  from{opacity:0; transform:translateY(30px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* ===== MAIN LAYOUT ===== */
+.container{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:40px 60px;
+  gap:50px;
+}
+
+/* ===== LEFT : CUBE ===== */
+.scene{
+  width:500px;
+  height:500px;
+}
+
+.cube{
+  width:100%;
+  height:100%;
+  position:relative;
+  transform-style:preserve-3d;
+  cursor:grab;
+  transition:transform 0.1s ease-out;
+}
+
+.face{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.block{
+  width:250px;
+  height:250px;
+  border-radius:15px;
+  border:3px solid rgba(255,255,255,0.3);
+  box-shadow:0 0 40px rgba(0,255,234,0.7),
+             inset 0 0 20px rgba(0,255,234,0.4);
+  overflow:hidden;
+}
+
+.block img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* cube depth */
+.front  {transform:translateZ(125px);}
+.back   {transform:rotateY(180deg) translateZ(125px);}
+.right  {transform:rotateY(90deg) translateZ(125px);}
+.left   {transform:rotateY(-90deg) translateZ(125px);}
+.top    {transform:rotateX(90deg) translateZ(125px);}
+.bottom {transform:rotateX(-90deg) translateZ(125px);}
+
+/* ===== RIGHT : CARD ===== */
+.card{
+  max-width:800px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(0,255,234,0.4);
+  border-radius:20px;
+  padding:40px;
+  box-shadow:0 0 40px rgba(0,255,234,0.3);
+  opacity:0;
+  transform:translateY(30px);
+  animation:fadeSlide 1s ease forwards;
+  animation-delay:0.5s;
+}
+
+.card h2{
+  color:#00ffea;
+  margin-bottom:15px;
+  font-size:30px;
+}
+.card h3{
+  color:#00ffea;
+  margin-bottom:9px;
+  margin-top: 20px;
+  font-size:26px;
+}
+.card p{
+  line-height:1.7;
+  font-size:18px;
+  color:#eaeaea;
+}
+
+/* ===== NEXT BUTTON ===== */
+.next-btn{
+  display:block;
+  margin:50px auto 30px;
+  padding:15px 50px;
+  font-size:20px;
+  color:#00ffea;
+  background:transparent;
+  border:2px solid #00ffea;
+  border-radius:30px;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow:0 0 20px rgba(0,255,234,0.5);
+}
+
+.next-btn:hover{
+  background:#00ffea;
+  color:#000;
+  box-shadow:0 0 40px rgba(0,255,234,1);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1000px){
+  .container{
+    flex-direction:column;
+    text-align:center;
+  }
+  .scene{
+    margin-bottom:30px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>The Ways Black Hat Hackers Steal Our Information</h1>
+</header>
+
+<div class="container">
+
+  <!-- LEFT : CUBE -->
+  <div class="scene">
+    <div class="cube" id="cube">
+      <div class="face front"><div class="block"><img src="mm/1 (1).jpg"></div></div>
+      <div class="face back"><div class="block"><img src="mm/1 (2).jpg"></div></div>
+      <div class="face right"><div class="block"><img src="mm/1 (3).jpg"></div></div>
+      <div class="face left"><div class="block"><img src="mm/1 (4).jpg"></div></div>
+      <div class="face top"><div class="block"><img src="mm/1 (5).jpg"></div></div>
+      <div class="face bottom"><div class="block"><img src="mm/1 (6).jpg"></div></div>
+    </div>
+  </div>
+
+  <!-- RIGHT : CARD -->
+  <div class="card">
+    <h2>Who Are Black Hat Hackers</h2>
+    <p>
+   Black hat hackers are individuals who illegally hack systems or networks to steal data, cause damage, or gain personal benefit.
+    </p>
+
+    <h3>Why They Hack</h3>
+    <p>They hack to steal data, make money, cause disruption, or exploit systems for personal gain.</p>
+  </div>
+
+</div>
+
+<!-- NEXT BUTTON -->
+<button class="next-btn" onclick="nextSlide()">NEXT ➜</button>
+
+<script>
+const cube = document.getElementById("cube");
+
+let isDrag=false,startX,startY;
+let rotX=-25,rotY=30;
+let autoX=0.2,autoY=0.4;
+
+cube.style.transform=`rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+
+// Drag
+document.addEventListener("mousedown",e=>{
+  isDrag=true;
+  startX=e.clientX;
+  startY=e.clientY;
+});
+document.addEventListener("mouseup",()=>isDrag=false);
+document.addEventListener("mousemove",e=>{
+  if(!isDrag) return;
+  rotY+=(e.clientX-startX)*0.4;
+  rotX-=(e.clientY-startY)*0.4;
+  cube.style.transform=`rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  startX=e.clientX;
+  startY=e.clientY;
+});
+
+// Auto rotate
+function autoRotate(){
+  if(!isDrag){
+    rotY+=autoY;
+    rotX+=autoX;
+    cube.style.transform=`rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+  }
+  requestAnimationFrame(autoRotate);
+}
+autoRotate();
+
+// NEXT BUTTON FUNCTION
+function nextSlide(){
+  window.location.href = "slide3.html";
+}
+</script>
+
+</body>
+</html>

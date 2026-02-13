@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Realistic Keyboard</title>
+<style>
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #111;
+  font-family: Arial, sans-serif;
+  user-select: none;
+  margin: 0;
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(15, 60px);
+  gap: 8px;
+  background: #222;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 30px #000 inset;
+}
+
+/* Basic key style */
+.key {
+  width: 60px;
+  height: 60px;
+  background: #333;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  box-shadow: 0 4px #111;
+  transition: all 0.15s ease;
+  font-weight: bold;
+  cursor: default;
+  position: relative;
+}
+
+/* Key active effect */
+.key.active {
+  background: #00ffea;
+  color: #000;
+  box-shadow: 0 2px #111;
+  transform: translateY(3px) scale(1.05);
+}
+
+/* Wide keys */
+.key.wide {
+  grid-column: span 2;
+  width: 120px;
+  height: 60px;
+}
+
+.key.extra-wide {
+  grid-column: span 3;
+  width: 180px;
+  height: 60px;
+}
+
+.key.space {
+  grid-column: span 7;
+  width: 500px;
+  height: 60px;
+}
+
+/* Optional small label under key for special keys */
+.key span {
+  font-size: 12px;
+  position: absolute;
+  bottom: 4px;
+  color: #ccc;
+}
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: #555;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+}
+ .back-btn:hover {
+  background: #00eeff;
+}
+</style>
+</head>
+<body>
+<div class="keyboard" id="keyboard">
+  <!-- Row 1: Function keys -->
+  <div class="key">Esc</div>
+  <div class="key">F1</div>
+  <div class="key">F2</div>
+  <div class="key">F3</div>
+  <div class="key">F4</div>
+  <div class="key">F5</div>
+  <div class="key">F6</div>
+  <div class="key">F7</div>
+  <div class="key">F8</div>
+  <div class="key">F9</div>
+  <div class="key">F10</div>
+  <div class="key">F11</div>
+  <div class="key">F12</div>
+  <div class="key">PrtSc</div>
+  <div class="key">Del</div>
+
+  <!-- Row 2: Numbers -->
+  <div class="key">~</div>
+  <div class="key">1</div>
+  <div class="key">2</div>
+  <div class="key">3</div>
+  <div class="key">4</div>
+  <div class="key">5</div>
+  <div class="key">6</div>
+  <div class="key">7</div>
+  <div class="key">8</div>
+  <div class="key">9</div>
+  <div class="key">0</div>
+  <div class="key">-</div>
+  <div class="key">=</div>
+  <div class="key wide">Backspace</div>
+
+  <!-- Row 3: Q-P row -->
+  <div class="key wide">Tab</div>
+  <div class="key">Q</div>
+  <div class="key">W</div>
+  <div class="key">E</div>
+  <div class="key">R</div>
+  <div class="key">T</div>
+  <div class="key">Y</div>
+  <div class="key">U</div>
+  <div class="key">I</div>
+  <div class="key">O</div>
+  <div class="key">P</div>
+  <div class="key">[</div>
+  <div class="key">]</div>
+  <div class="key">\</div>
+
+  <!-- Row 4: A-L row -->
+  <div class="key extra-wide">Caps</div>
+  <div class="key">A</div>
+  <div class="key">S</div>
+  <div class="key">D</div>
+  <div class="key">F</div>
+  <div class="key">G</div>
+  <div class="key">H</div>
+  <div class="key">J</div>
+  <div class="key">K</div>
+  <div class="key">L</div>
+  <div class="key">;</div>
+  <div class="key">'</div>
+  
+
+  <!-- Row 5: Z-M row -->
+  
+  <div class="key">Z</div>
+  <div class="key">X</div>
+  <div class="key">C</div>
+  <div class="key">V</div>
+  <div class="key">B</div>
+  <div class="key">N</div>
+  <div class="key">M</div>
+  <div class="key">,</div>
+  <div class="key">.</div>
+  <div class="key">/</div><div class="key extra-wide">Enter</div>
+  <div class="key extra-wide">Shift</div>
+
+  <!-- Row 6: Bottom row -->
+
+  <div class="key">Win</div>
+  <div class="key">Alt</div>
+  <div class="key space">Space</div>
+  
+  <div class="key">Fn</div>
+  <div class="key">Menu</div>
+  <div class="key wide">Ctrl</div>
+</div>
+
+
+<button class="back-btn" onclick="history.back()">⬅</button>
+<script>
+const keyElements = document.querySelectorAll('.key');
+
+// Map key names for highlighting
+const keyMap = {};
+keyElements.forEach(k => {
+  let text = k.innerText.toLowerCase();
+  if(text === 'caps') text = 'capslock';
+  if(text === 'ctrl') text = 'control';
+  if(text === 'esc') text = 'escape';
+  if(text === 'space') text = ' ';
+  keyMap[text] = k;
+});
+
+document.addEventListener('keydown', e => {
+  let key = e.key.toLowerCase();
+  if(keyMap[key]) keyMap[key].classList.add('active');
+});
+
+document.addEventListener('keyup', e => {
+  let key = e.key.toLowerCase();
+  if(keyMap[key]) keyMap[key].classList.remove('active');
+});
+</script>
+</body>
+</html>
