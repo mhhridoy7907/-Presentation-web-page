@@ -36,7 +36,7 @@ main{
   gap:30px;
 }
 
-/* ====== PRESENTATION TEXT ====== */
+
 .header{
   text-align:center;
 }
@@ -73,7 +73,7 @@ main{
   opacity:0.85;
 }
 
-/* ===== TYPE EFFECT ===== */
+
 .typing::after{
   content:"|";
   animation:blink 1s infinite;
@@ -83,10 +83,10 @@ main{
   50%{opacity:0}
 }
 
-/* ===== GLITCH ===== */
+
 .glitch {
   position: relative;
-  color: white; /* মূল text color */
+  color: white; 
   font-size: 4em;
   font-weight: bold;
 }
@@ -97,7 +97,7 @@ main{
   position: absolute;
   left: 0;
   width: 100%;
-  top: 0; /* text fixed */
+  top: 0; 
 }
 
 .glitch::before {
@@ -122,7 +122,7 @@ main{
   100% { clip-path: inset(0 0 100% 0); }
 }
 
-/* ===== LOGIN BOX ===== */
+
 .login{
   width:340px;
   padding:30px;
@@ -205,7 +205,7 @@ main{
 </main>
 
 <script>
-// ===== PARTICLE BG =====
+
 const c=document.getElementById("bg"),ctx=c.getContext("2d");
 function resize(){c.width=innerWidth;c.height=innerHeight}
 resize();addEventListener("resize",resize);
@@ -240,7 +240,7 @@ function animate(){
 }
 animate();
 
-// ===== TYPE EFFECT =====
+
 const texts=[
  ["l1","RTM Al-Kabir Technical University"],
  ["l2","An presentation on"],
@@ -270,7 +270,7 @@ function type(){
 }
 type();
 
-// ===== VOICE ON INPUT CLICK =====
+
 const inputField = document.getElementById("pass");
 const voiceText = document.getElementById("voiceText").innerText;
 
@@ -279,7 +279,7 @@ inputField.addEventListener("click", ()=>{
   speechSynthesis.speak(msg);
 });
 
-// ===== BEEP SOUND =====
+
 const beepCtx=new AudioContext();
 function beep(){
   const o=beepCtx.createOscillator();
@@ -292,7 +292,7 @@ function beep(){
 }
 pass.addEventListener("keydown",beep);
 
-// ===== PASSWORD =====
+
 function check(){
   if(pass.value==="asdfgh123"){
     box.classList.add("fade");
@@ -306,4 +306,5 @@ function check(){
 </script>
 
 </body>
+
 </html>
