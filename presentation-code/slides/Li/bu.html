@@ -38,7 +38,7 @@ button{margin-top:10px;padding:8px 12px;background:#0ff;border:none;color:#000;f
   <button id="okBtn">OK</button>
 </div>
 
-<!-- Final message -->
+
 <div id="finalMessage"></div>
 
 <div id="console"></div>
@@ -78,7 +78,7 @@ document.getElementById('generate').addEventListener('click',()=>{
   updateUI();
 });
 
-// Brute-force animation with random characters
+
 document.getElementById('okBtn').addEventListener('click', ()=>{
     const passwordStrength = scoreFromEntropy(calcEntropy(pwd.value||'')).label;
     let attempts=0,maxAttempts=60;
@@ -95,7 +95,7 @@ document.getElementById('okBtn').addEventListener('click', ()=>{
         consoleEl.appendChild(lineEl);
         consoleEl.scrollTop=consoleEl.scrollHeight;
 
-        let subAttempts=0, subMax=10; // flicker frames
+        let subAttempts=0, subMax=10; 
         function animateLine(){
             lineEl.textContent=`Attempt ${attempts+1}: ` + generateLine(6);
             subAttempts++;
@@ -119,3 +119,4 @@ updateUI();
 
 </body>
 </html>
+
