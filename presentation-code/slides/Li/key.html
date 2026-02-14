@@ -26,7 +26,7 @@ body {
   box-shadow: 0 0 30px #000 inset;
 }
 
-/* Basic key style */
+
 .key {
   width: 60px;
   height: 60px;
@@ -43,7 +43,7 @@ body {
   position: relative;
 }
 
-/* Key active effect */
+
 .key.active {
   background: #00ffea;
   color: #000;
@@ -51,7 +51,7 @@ body {
   transform: translateY(3px) scale(1.05);
 }
 
-/* Wide keys */
+
 .key.wide {
   grid-column: span 2;
   width: 120px;
@@ -70,7 +70,7 @@ body {
   height: 60px;
 }
 
-/* Optional small label under key for special keys */
+
 .key span {
   font-size: 12px;
   position: absolute;
@@ -96,7 +96,7 @@ body {
 </head>
 <body>
 <div class="keyboard" id="keyboard">
-  <!-- Row 1: Function keys -->
+ 
   <div class="key">Esc</div>
   <div class="key">F1</div>
   <div class="key">F2</div>
@@ -113,7 +113,7 @@ body {
   <div class="key">PrtSc</div>
   <div class="key">Del</div>
 
-  <!-- Row 2: Numbers -->
+
   <div class="key">~</div>
   <div class="key">1</div>
   <div class="key">2</div>
@@ -129,7 +129,7 @@ body {
   <div class="key">=</div>
   <div class="key wide">Backspace</div>
 
-  <!-- Row 3: Q-P row -->
+  
   <div class="key wide">Tab</div>
   <div class="key">Q</div>
   <div class="key">W</div>
@@ -145,7 +145,7 @@ body {
   <div class="key">]</div>
   <div class="key">\</div>
 
-  <!-- Row 4: A-L row -->
+ 
   <div class="key extra-wide">Caps</div>
   <div class="key">A</div>
   <div class="key">S</div>
@@ -160,8 +160,7 @@ body {
   <div class="key">'</div>
   
 
-  <!-- Row 5: Z-M row -->
-  
+ 
   <div class="key">Z</div>
   <div class="key">X</div>
   <div class="key">C</div>
@@ -174,8 +173,7 @@ body {
   <div class="key">/</div><div class="key extra-wide">Enter</div>
   <div class="key extra-wide">Shift</div>
 
-  <!-- Row 6: Bottom row -->
-
+ 
   <div class="key">Win</div>
   <div class="key">Alt</div>
   <div class="key space">Space</div>
@@ -190,7 +188,7 @@ body {
 <script>
 const keyElements = document.querySelectorAll('.key');
 
-// Map key names for highlighting
+
 const keyMap = {};
 keyElements.forEach(k => {
   let text = k.innerText.toLowerCase();
@@ -212,4 +210,5 @@ document.addEventListener('keyup', e => {
 });
 </script>
 </body>
+
 </html>
