@@ -36,7 +36,7 @@ This project features smooth animations, 3D effects, and an engaging UI design.
 ![Preview 1](p/4.png)
 
 ---
-### password
+###  Presentation password
 ![Preview](p/5.png)
 ## 🛠️ Built With
 
