@@ -49,13 +49,16 @@ This project features smooth animations, 3D effects, and an engaging UI design.
 ## 📂 Project Structure
 
 ```
-|presentation code folder
+📂presentation code folder
 |
-|---html file--------------------- open html file any browser to view
-|---js file
-|--- slides folder|
-                  |---slides1.html
-                  |---slide2
-                  |---slide3
+|---opening code.html--------------------- open html file any browser to view
+|---funtion.js 
+|--📂slides |
+            |---slides1.html
+            |---slide2
+            |---slide3
+            |---slide3
+            |---slide4
+            |---📂mm----------imges 
                             
 ```
